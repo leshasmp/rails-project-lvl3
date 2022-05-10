@@ -4,7 +4,7 @@
 
 ## Пример проекта
 
-[https://collective-blog-am.herokuapp.com](https://collective-blog-am.herokuapp.com/)
+[https://bulletin-board-am.herokuapp.com](https://bulletin-board-am.herokuapp.com/)
 
 ## Системные требования
 
