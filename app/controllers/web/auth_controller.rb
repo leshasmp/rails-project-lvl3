@@ -9,7 +9,7 @@ class Web::AuthController < Web::ApplicationController
     user = User.find_by(email: email)
 
     if user.nil?
-      user = User.new(email: email, name: auth[:info][:name])
+      user = User.new(email: email, name: auth[:info][:nickname])
       user.save
     end
 

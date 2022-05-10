@@ -12,8 +12,9 @@ header
         span.navbar-toggler-icon
       .collapse.navbar-collapse id="navbarCollapse"
         ul.navbar-nav.ms-auto.mb-2.mb-md-0
-          li.nav-item
           - if signed_in?
-            = link_to t('.sign_in'), auth_request_path('github'), method: 'post', data: { turbo: false }
+            li.nav-item
+              = link_to t('.sign_out'), auth_logout_path, class: 'nav-link', method: 'delete', data: { turbo: false }
           - else
-            = link_to t('.sign_out'), auth_request_path('github'), method: 'delete', data: { turbo: false }
+            li.nav-item
+              = link_to t('.sign_in'), auth_request_path('github'), class: 'nav-link', method: 'post', data: { turbo: false }
