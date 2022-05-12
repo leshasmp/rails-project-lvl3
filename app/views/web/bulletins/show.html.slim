@@ -1,0 +1,13 @@
+- content_for :page_title do
+  = @bulletin.title
+.row
+  .col-8
+    - if @bulletin.image_attachment
+      = image_tag @bulletin.image, class: 'img-thumbnail mb-2', size: '260x180'
+    p
+      = @bulletin.description
+  .col-4
+    .card
+      .card-body
+        .h5.card-title
+          = @bulletin.user.name

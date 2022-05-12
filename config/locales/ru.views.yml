@@ -2,5 +2,25 @@ ru:
   web:
     home:
       index:
-        page_title:
-          Коллективный блог
+        main:
+          Объявления
+        day_ago:
+          zero: "%{count}"
+          one: "%{count}"
+          few: "%{count}"
+          many: "%{count}"
+          other: "%{count}"  
+    bulletins:
+      new:
+        new_bulletin:
+          Добавить объявление
+      create:
+        success:
+          Объявление успешно создано    
+    auth:
+      callback:
+        success:
+          Успешно
+      sign_out:
+        success:
+          Успешно   

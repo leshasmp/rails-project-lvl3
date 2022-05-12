@@ -4,15 +4,21 @@ html.h-100 lang="#{I18n.locale}"
     = render 'layouts/shared/head'
   body.d-flex.flex-column.h-100
     = render 'layouts/shared/nav'
-    .container
-      .my-2
-        = render_flash_messages dismissible: true
-      - if content_for?(:page_title)
-        h1.mt-5
-          = yield :page_title
-      - if content_for?(:form_content)
-        .row.my-3
-          .col-lg-5.col-md-8.mx-auto
-            = yield :form_content
-      = yield
+    main
+      .mt-4.mb-5.pb-5
+        .container
+          = render_flash_messages dismissible: true
+          .p-4.align-items-center.border.shadow.bg-white.rounded-3
+            .row
+              .p-3.p-lg-5.pt-lg-0
+                .mb-4
+                  - if content_for?(:page_title)
+                    h1.mt-5
+                      = yield :page_title
+                    hr
+                  - if content_for?(:form_content)
+                    .row.my-3
+                      .col-lg-5.col-md-8.mx-auto
+                        = yield :form_content
+                = yield
     = render 'layouts/shared/footer'

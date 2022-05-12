@@ -1,0 +1,11 @@
+- content_for :page_title do
+  = t('.new_bulletin')
+= simple_form_for @bulletin do |f|
+  = f.input :title
+  = f.input :description, as: :text
+  = f.association :category, as: :select
+  - if @bulletin.image_attachment
+    = image_tag @bulletin.image.variant(resize_to_limit: [200, 100]), class: 'img-thumbnail mb-2'
+  = f.input :image, as: :file
+
+  = f.button :submit, class: 'btn btn-primary mt-3 btn-block'

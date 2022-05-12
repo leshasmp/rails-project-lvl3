@@ -26,9 +26,12 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'active_storage_validations'
 gem 'ancestry'
+gem 'aws-sdk-s3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'flash_rails_messages'
+gem 'image_processing'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'

@@ -14,7 +14,7 @@ class Web::AuthController < Web::ApplicationController
     end
 
     sign_in user
-    redirect_to root_path
+    redirect_to root_path, notice: t('.success')
   end
 
   def sign_in(user)
@@ -24,7 +24,7 @@ class Web::AuthController < Web::ApplicationController
   def sign_out
     session.delete(:user_id)
     session.clear
-    redirect_to root_path
+    redirect_to root_path, notice: t('.success')
   end
 
   private
