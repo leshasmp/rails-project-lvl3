@@ -1,0 +1,7 @@
+ul.nav.flex-column.nav-pills
+  li.nav-item
+    = link_to t('.moderation'), admin_path, class: current_class?(admin_path)
+  li.nav-item
+    = link_to t('.bulletins'), bulletins_path, class: current_class?(bulletins_path)
+  li.nav-item
+    = link_to t('.categories'), categories_path, class: current_class?(categories_path)

@@ -1,0 +1,26 @@
+.row.mt-2
+  .col-md-3
+    = render 'web/admin/nav'
+  .col-md-9
+    h1.h2.mb-4
+      = t('.title')
+    table.table.table-borderless
+      thead
+        tr
+          th
+            = t('.name')
+          th
+            = t('.state')
+          th
+            = t('.date_publication')
+          th
+            = t('.actions')
+      tbody
+      - @bulletins.each do |bulletin|
+        tr
+          td
+            = link_to bulletin.title, bulletin
+          td
+          td
+            = t('.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+          td

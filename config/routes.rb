@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     delete 'auth/logout', to: 'auth#sign_out', as: :auth_logout
 
-    resources :bulletins, except: %i[index]
+    scope 'admin' do
+      get '/', to: 'admin#index', as: :admin
+      resources :bulletins, only: %i[index]
+      resources :categories
+    end
+
+    resources :bulletins, only: %i[show new create]
   end
 end

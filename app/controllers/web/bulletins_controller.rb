@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :authenticate_user!, except: %i[show]
+  after_action :verify_authorized, except: %i[show]
+
+  def index
+    authorize Bulletin
+    @bulletins = Bulletin.all
+  end
 
   def show
     @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
   end
 
   def new
     @bulletin = Bulletin.new
-  end
-
-  def edit
-    @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
   end
 
   def create
+    authorize Bulletin
     @bulletin = current_user.bulletins.new(bulletin_params)
 
     if @bulletin.save
@@ -27,20 +31,13 @@ class Web::BulletinsController < Web::ApplicationController
 
   def update
     @bulletin = Bulletin.find params[:id]
+    authorize @bulletin
 
     if @bulletin.update(bulletin_params)
       redirect_to @bulletin, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
-  end
-
-  def destroy
-    @bulletin = Bulletin.find params[:id]
-
-    @bulletin.destroy
-
-    redirect_to bulletins_url, notice: t('.success')
   end
 
   private

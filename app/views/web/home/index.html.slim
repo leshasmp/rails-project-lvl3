@@ -1,14 +1,18 @@
-- content_for :page_title do
-  = t('.main')
-.row.mt-2
-  - @bulletins.each do |bulletin|
-    .col-3.pt-2
-      .card.shadow-sm
-        - if bulletin.image_attachment
-          = image_tag(bulletin.image, class: 'card-img-top x-object-fit-cover', height: 200)
-        .card-body
-          = link_to bulletin do
-            h5.card-title
-              = bulletin.title
-          h6.card-subtitle.mb-2.text-muted
-            = t('.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+.p-4.mt-4.align-items-center.border.shadow.bg-white.rounded-3
+  .p-3.p-lg-4.pt-lg-0
+    .mb-4
+      h1.mt-5
+        = t('.main')
+      hr
+      .row.mt-2
+        - @bulletins.each do |bulletin|
+          .col-3.pt-2.mb-3
+            .card.shadow-sm
+              - if bulletin.image_attachment
+                = image_tag(bulletin.image, class: 'card-img-top x-object-fit-cover', height: 200)
+              .card-body
+                = link_to bulletin do
+                  h5.card-title
+                    = bulletin.title
+                h6.card-subtitle.mb-2.text-muted
+                  = t('.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
