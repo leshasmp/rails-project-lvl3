@@ -1,0 +1,19 @@
+ru:
+  categories:
+    index:
+      title:
+        Категории
+    create:
+      success:
+        Категория успешно добавлена
+    edit:
+      title:
+        Редактировать категорию
+    update:
+      success:
+        Категория успешно обновлена
+    destroy:
+      success:
+        Категория успешно удалена
+    add:
+      Добавить категорию

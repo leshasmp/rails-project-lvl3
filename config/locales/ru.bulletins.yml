@@ -1,0 +1,36 @@
+ru:
+  bulletins:
+    index:
+      title:
+        Объявления
+    new:
+      new_bulletin:
+        Добавить объявление
+    create:
+      success:
+        Объявление успешно создано
+    edit:
+      edit_bulletin:
+        Редактировать объявление    
+    update:
+      success:
+        Объявление успешно обновлено
+    to_moderation:
+      success:
+        Объявление успешно отправлено на модерацию
+    archive:
+      success:
+        Объявление успешно отправлено в архив
+    reject:
+      success:
+        Объявление успешно отклонено 
+    publish:
+      success:
+        Объявление успешно опубликовано
+    search:
+      title:
+        Искать по названию объявления
+      category:
+        Выбрать категорию
+    add:
+      Добавить обьявление 

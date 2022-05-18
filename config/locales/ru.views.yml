@@ -1,13 +1,4 @@
 ru:
-  pagination:
-    first:
-      Первый
-    next:
-      Следующий
-    last:
-      Последний
-    previous:
-      Предыдущий 
   reset:
     Сбросить
   destroy_confirmation:
@@ -16,39 +7,6 @@ ru:
     index:
       main:
         Объявления
-      day_ago:
-        zero: "%{count}"
-        one: "%{count}"
-        few: "%{count}"
-        many: "%{count}"
-        other: "%{count}"
-  items:
-    id:
-      Идентификатор
-    name:
-      Название
-    state:
-      Состояние
-    date_publication:
-      Дата публикации
-    actions:
-      Действия
-    show:
-      Показать
-    edit:
-      Редактировать
-    destroy:
-      Удалить
-    to_moderation:
-      На модерацию
-    archive:
-      В архив
-    state:
-      Состояние
-    publish:
-      Опубликовать
-    reject:
-      Вернуть
   state:
     draft:
       Черновик
@@ -65,42 +23,7 @@ ru:
     one: "%{count}"
     few: "%{count}"
     many: "%{count}"
-    other: "%{count}"
-  bulletins:
-    index:
-      title:
-        Объявления
-    new:
-      new_bulletin:
-        Добавить объявление
-    create:
-      success:
-        Объявление успешно создано
-    edit:
-      edit_bulletin:
-        Редактировать объявление    
-    update:
-      success:
-        Объявление успешно обновлено
-    to_moderation:
-      success:
-        Объявление успешно отправлено на модерацию
-    archive:
-      success:
-        Объявление успешно отправлено в архив
-    reject:
-      success:
-        Объявление успешно отклонено 
-    publish:
-      success:
-        Объявление успешно опубликовано
-    search:
-      title:
-        Искать по названию объявления
-      category:
-        Выбрать категорию
-    add_bulletin:
-      Добавить обьявление    
+    other: "%{count}"   
   auth:
     callback:
       success:
@@ -119,24 +42,6 @@ ru:
         Все объявления
       categories:
         Все категории
-  categories:
-    index:
-      title:
-        Категории
-    create:
-      success:
-        Категория успешно добавлена
-    edit:
-      title:
-        Редактировать категорию
-    update:
-      success:
-        Категория успешно обновлена
-    destroy:
-      success:
-        Категория успешно удалена
-    add:
-      Добавить категорию    
   profile:
     index:
       title:

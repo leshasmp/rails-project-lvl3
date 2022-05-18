@@ -36,5 +36,5 @@ class Bulletin < ApplicationRecord
             content_type: %i[png jpg jpeg],
             size: { less_than: 5.megabytes }
 
-  paginates_per 1
+  paginates_per 10
 end

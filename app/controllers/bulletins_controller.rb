@@ -88,8 +88,6 @@ class BulletinsController < ApplicationController
     @bulletin = Bulletin.find params[:id]
   end
 
-  private
-
   def bulletin_params
     params.require(:bulletin).permit(:title, :description, :image, :category_id)
   end

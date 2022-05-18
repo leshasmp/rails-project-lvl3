@@ -1,0 +1,10 @@
+ru:
+  pagination:
+    first:
+      Первый
+    next:
+      Следующий
+    last:
+      Последний
+    previous:
+      Предыдущий

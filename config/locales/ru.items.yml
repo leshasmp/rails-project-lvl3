@@ -1,0 +1,28 @@
+ru:
+  items:
+    id:
+      Идентификатор
+    name:
+      Название
+    state:
+      Состояние
+    date_publication:
+      Дата публикации
+    actions:
+      Действия
+    show:
+      Показать
+    edit:
+      Редактировать
+    destroy:
+      Удалить
+    to_moderation:
+      На модерацию
+    archive:
+      В архив
+    state:
+      Состояние
+    publish:
+      Опубликовать
+    reject:
+      Вернуть
