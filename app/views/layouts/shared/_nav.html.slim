@@ -21,8 +21,9 @@ header.container.mb-2
               = link_to t('.new_bulletin'), new_bulletin_path, class: 'nav-link text-dark'
     ul.nav.nav-pills
       - if signed_in?
-        li.nav-item
-          = link_to t('.admin'), admin_path, class: 'nav-link text-dark'
+        - if current_user.admin?
+          li.nav-item
+            = link_to t('.admin'), admin_path, class: 'nav-link text-dark'
         li.nav-item
           = link_to t('.sign_out'), auth_logout_path, class: 'nav-link text-dark', method: 'delete', data: { turbo: false }
       - else

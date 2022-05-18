@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_202040) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin", default: true
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email"
   end
 
