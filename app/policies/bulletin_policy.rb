@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class BulletinPolicy < ApplicationPolicy
-  attr_reader :user, :bulletin
-
   def index?
     user
   end
@@ -11,12 +9,32 @@ class BulletinPolicy < ApplicationPolicy
     user
   end
 
+  def edit?
+    admin? || user == record.user
+  end
+
   def create?
     user
   end
 
+  def to_moderation?
+    admin? || user == record.user
+  end
+
+  def publish?
+    admin?
+  end
+
+  def reject?
+    admin?
+  end
+
+  def archive?
+    admin? || user == record.user
+  end
+
   def update?
-    admin? || user == record.author
+    user
   end
 
   private

@@ -1,0 +1,26 @@
+.row.mt-2
+  .col-md-3
+    = render 'admin/nav'
+  .col-md-9
+    h1.h2.mb-4
+      = t('.title')
+    = link_to t('categories.add'), new_category_path, class: 'd-blok my-4'  
+    table.table.table-borderless
+      thead
+        tr
+          th
+            = t('items.id')
+          th
+            = t('items.name')
+          th
+            = t('items.actions')
+      tbody
+        - @categories.each do |category|
+          tr
+            td
+              = category.id
+            td
+              = category.name
+            td
+              = link_to t('items.edit'), edit_category_path(category), class: 'me-2'
+              = link_to t('items.destroy'), category, data: { confirm: t('destroy_confirmation') }, method: :delete, class: 'link-danger'

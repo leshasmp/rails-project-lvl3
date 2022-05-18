@@ -4,9 +4,11 @@
       h1.mt-5
         = t('.main')
       hr
-      .row.mt-2
+      .p-3.bg-light
+        = render 'bulletins/search_form'
+      .row.mt-2.mb-4
         - @bulletins.each do |bulletin|
-          .col-3.pt-2.mb-3
+          .col-3.pt-2.mb-4
             .card.shadow-sm
               - if bulletin.image_attachment
                 = image_tag(bulletin.image, class: 'card-img-top x-object-fit-cover', height: 200)
@@ -16,3 +18,4 @@
                     = bulletin.title
                 h6.card-subtitle.mb-2.text-muted
                   = t('.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+      = paginate @bulletins, theme: 'bootstrap5'

@@ -16,7 +16,7 @@ header.container.mb-2
             = link_to t('.main_page'), root_path, class: 'nav-link text-dark'
           - if signed_in?
             li.nav-item
-              = link_to t('.profile'), '/profile', class: 'nav-link text-dark'
+              = link_to t('.profile'), profile_path, class: 'nav-link text-dark'
             li.nav-item
               = link_to t('.new_bulletin'), new_bulletin_path, class: 'nav-link text-dark'
     ul.nav.nav-pills

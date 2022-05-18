@@ -1,0 +1,32 @@
+.row.mt-2
+  .col-md-3
+    = render 'admin/nav'
+  .col-md-9
+    h1.h2.mb-4
+      = t('.title')
+    = render 'bulletins/search_form'
+    table.table.table-borderless.mt-4
+      thead
+        tr
+          th
+            = t('items.name')
+          th
+            = t('items.state')
+          th
+            = t('items.date_publication')
+          th
+            = t('items.actions')
+      tbody
+        - @bulletins.each do |bulletin|
+          tr
+            td
+              = link_to bulletin.title, bulletin
+            td
+              = t("state.#{bulletin.state}")
+            td
+              = t('day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+            td
+              = link_to t('items.show'), bulletin, class: 'me-2'
+              - if bulletin.may_archive?
+                = link_to t('items.archive'), archive_bulletin_path(bulletin), class: 'text-danger me-2', method: :patch
+    = paginate @bulletins, theme: 'bootstrap5'
