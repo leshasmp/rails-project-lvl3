@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CategoriesController < ApplicationController
+class Web::CategoriesController < Web::ApplicationController
   before_action :set_category, except: %i[index create new]
   after_action :verify_authorized
 

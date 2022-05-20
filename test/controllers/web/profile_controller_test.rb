@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class ProfileControllerTest < ActionDispatch::IntegrationTest
+class Web::ProfileControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users :one
   end

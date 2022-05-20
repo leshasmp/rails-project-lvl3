@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AdminController < ApplicationController
+class Web::AdminController < Web::ApplicationController
   after_action :verify_authorized
 
   def index

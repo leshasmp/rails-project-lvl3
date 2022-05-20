@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class AdminControllerTest < ActionDispatch::IntegrationTest
+class Web::AdminControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = users :admin
     @user = users :one

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BulletinsController < ApplicationController
+class Web::BulletinsController < Web::ApplicationController
   before_action :set_bulletin, except: %i[index create new]
   after_action :verify_authorized, except: %i[show]
 

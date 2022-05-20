@@ -1,9 +1,9 @@
 .row.mt-2
   .col-md-3
-    = render 'admin/nav'
+    = render 'web/admin/nav'
   .col-md-9
     h1.h2.mb-4
-      = t('.title')
+      = t('categories.index.title')
     = link_to t('categories.add'), new_category_path, class: 'd-blok my-4'
     table.table.table-borderless
       thead

@@ -1,10 +1,11 @@
 .row.mt-2
   .col-md-3
-    = render 'admin/nav'
+    = render 'web/admin/nav'
   .col-md-9
     h1.h2.mb-4
-      = t('.moderation')
-    table.table.table-borderless
+      = t('bulletins.index.title')
+    = render 'web/bulletins/search_form'
+    table.table.table-borderless.mt-4
       thead
         tr
           th
@@ -25,9 +26,7 @@
             td
               = t('day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
             td
-              - if bulletin.may_publish?
-                = link_to t('items.publish'), publish_bulletin_path(bulletin), class: 'me-2', method: :patch
-              - if bulletin.may_reject?
-                = link_to t('items.reject'), reject_bulletin_path(bulletin), class: 'me-2', method: :patch
+              = link_to t('items.show'), bulletin, class: 'me-2'
               - if bulletin.may_archive?
                 = link_to t('items.archive'), archive_bulletin_path(bulletin), class: 'text-danger me-2', method: :patch
+    = paginate @bulletins, theme: 'bootstrap5'

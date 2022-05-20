@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AuthController < ApplicationController
+class Web::AuthController < Web::ApplicationController
   helper_method :current_user, :logged_in?
   before_action :auth, only: [:callback]
 
