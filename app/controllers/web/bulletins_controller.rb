@@ -1,14 +1,8 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, except: %i[index create new]
-  after_action :verify_authorized, except: %i[show]
-
-  def index
-    authorize Bulletin
-    @q = Bulletin.order('created_at DESC').ransack(params[:query])
-    @bulletins = @q.result.page(params[:page])
-  end
+  before_action :set_bulletin, except: %i[create new]
+  after_action :verify_authorized, except: :show
 
   def show; end
 
@@ -46,26 +40,6 @@ class Web::BulletinsController < Web::ApplicationController
     authorize @bulletin
 
     if @bulletin.to_moderation!
-      redirect_to profile_path, notice: t('.success')
-    else
-      redirect_to profile_path, status: :unprocessable_entity
-    end
-  end
-
-  def publish
-    authorize @bulletin
-
-    if @bulletin.publish!
-      redirect_to profile_path, notice: t('.success')
-    else
-      redirect_to profile_path, status: :unprocessable_entity
-    end
-  end
-
-  def reject
-    authorize @bulletin
-
-    if @bulletin.reject!
       redirect_to profile_path, notice: t('.success')
     else
       redirect_to profile_path, status: :unprocessable_entity

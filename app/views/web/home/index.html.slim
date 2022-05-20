@@ -2,10 +2,10 @@
   .p-3.p-lg-4.pt-lg-0
     .mb-4
       h1.mt-5
-        = t('home.index.main')
+        = t('.title')
       hr
       .p-3.bg-light
-        = render 'web/bulletins/search_form'
+        = render 'web/admin/bulletins/search_form'
       .row.mt-2.mb-4
         - @bulletins.each do |bulletin|
           .col-3.pt-2.mb-4
@@ -17,5 +17,5 @@
                   h5.card-title
                     = bulletin.title
                 h6.card-subtitle.mb-2.text-muted
-                  = t('day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+                  = t('web.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
       = paginate @bulletins, theme: 'bootstrap5'

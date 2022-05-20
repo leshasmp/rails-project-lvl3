@@ -3,8 +3,8 @@
     = render 'web/admin/nav'
   .col-md-9
     h1.h2.mb-4
-      = t('categories.index.title')
-    = link_to t('categories.add'), new_category_path, class: 'd-blok my-4'
+      = t('.title')
+    = link_to t('.new'), new_admin_category_path, class: 'd-blok my-4'
     table.table.table-borderless
       thead
         tr
@@ -22,5 +22,5 @@
             td
               = category.name
             td
-              = link_to t('items.edit'), edit_category_path(category), class: 'me-2'
-              = link_to t('items.destroy'), category, data: { confirm: t('destroy_confirmation') }, method: :delete, class: 'link-danger'
+              = link_to t('items.edit'), edit_admin_category_path(category), class: 'me-2'
+              = link_to t('items.destroy'), admin_category_path(category), data: { confirm: t('destroy_confirmation') }, method: :delete, class: 'link-danger'

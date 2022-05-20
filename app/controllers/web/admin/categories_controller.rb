@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Web::CategoriesController < Web::ApplicationController
+class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   before_action :set_category, except: %i[index create new]
   after_action :verify_authorized
 
@@ -23,7 +23,7 @@ class Web::CategoriesController < Web::ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to categories_path, notice: t('.success')
+      redirect_to admin_categories_path, notice: t('.success')
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class Web::CategoriesController < Web::ApplicationController
     authorize @category
 
     if @category.update(category_params)
-      redirect_to categories_path, notice: t('.success')
+      redirect_to admin_categories_path, notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class Web::CategoriesController < Web::ApplicationController
     authorize @category
     @category.destroy
 
-    redirect_to categories_path, notice: t('.success')
+    redirect_to admin_categories_path, notice: t('.success')
   end
 
   private

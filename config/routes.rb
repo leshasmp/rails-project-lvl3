@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   scope module: 'web' do
     root 'home#index'
-    get '/bulletins', to: 'home#index'
 
     post 'auth/:provider', to: 'auth#request', as: :auth_request
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
@@ -11,19 +10,23 @@ Rails.application.routes.draw do
 
     get '/profile', to: 'profile#index'
 
-    scope 'admin' do
-      get '/', to: 'admin#index', as: :admin
-      resources :categories, except: %i[show]
-    end
-
-    get '/admin/bulletins', to: 'bulletins#index'
-
-    resources :bulletins, except: %i[index destroy] do
+    resources :bulletins, except: :index do
       member do
         patch 'to_moderation'
-        patch 'publish'
-        patch 'reject'
         patch 'archive'
+      end
+    end
+
+    resources :admin, only: :index
+
+    namespace 'admin' do
+      resources :categories, except: :show
+      resources :bulletins, only: %i[index] do
+        member do
+          patch 'publish'
+          patch 'reject'
+          patch 'archive'
+        end
       end
     end
   end

@@ -1,0 +1,7 @@
+.row.mt-2
+  .col-md-3
+    = render 'web/admin/nav'
+  .col-md-9
+    h1.h2.mb-4
+      = t('.title')
+    = render partial: 'form', locals: { category: @category, url: admin_category_path }
