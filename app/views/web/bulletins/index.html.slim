@@ -1,32 +1,21 @@
-.row.mt-2
-  .col-md-3
-    = render 'web/admin/nav'
-  .col-md-9
-    h1.h2.mb-4
-      = t('bulletins.index.title')
-    = render 'search_form'
-    table.table.table-borderless.mt-4
-      thead
-        tr
-          th
-            = t('items.name')
-          th
-            = t('items.state')
-          th
-            = t('items.date_publication')
-          th
-            = t('items.actions')
-      tbody
+.p-4.mt-4.align-items-center.border.shadow.bg-white.rounded-3
+  .p-3.p-lg-4.pt-lg-0
+    .mb-4
+      h1.mt-5
+        = t('.title')
+      hr
+      .p-3.bg-light
+        = render 'web/admin/bulletins/search_form'
+      .row.mt-2.mb-4
         - @bulletins.each do |bulletin|
-          tr
-            td
-              = link_to bulletin.title, bulletin
-            td
-              = t("web.state.#{bulletin.state}")
-            td
-              = t('web.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
-            td
-              = link_to t('items.show'), bulletin, class: 'me-2'
-              - if bulletin.may_archive?
-                = link_to t('items.archive'), archive_admin_bulletin_path(bulletin), class: 'text-danger me-2', method: :patch
-    = paginate @bulletins, theme: 'bootstrap5'
+          .col-3.pt-2.mb-4
+            .card.shadow-sm
+              - if bulletin.image_attachment
+                = image_tag(bulletin.image, class: 'card-img-top x-object-fit-cover', height: 200)
+              .card-body
+                = link_to bulletin do
+                  h5.card-title
+                    = bulletin.title
+                h6.card-subtitle.mb-2.text-muted
+                  = t('web.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+      = paginate @bulletins, theme: 'bootstrap5'

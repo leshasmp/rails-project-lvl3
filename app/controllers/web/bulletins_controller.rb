@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, except: %i[create new]
-  after_action :verify_authorized, except: :show
+  before_action :set_bulletin, except: %i[index create new]
+  after_action :verify_authorized, except: %i[index show]
+
+  def index
+    @q = Bulletin.published.order('created_at DESC').ransack(params[:query])
+    @bulletins = @q.result.page(params[:page])
+  end
 
   def show; end
 
