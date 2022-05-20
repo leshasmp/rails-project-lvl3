@@ -23,7 +23,7 @@ class BulletinsController < ApplicationController
 
   def create
     authorize Bulletin
-    @bulletin = current_user.bulletins.new(bulletin_params)
+    @bulletin = current_user.bulletins.build(bulletin_params)
 
     if @bulletin.save
       redirect_to root_path, notice: t('.success')

@@ -9,7 +9,8 @@ class AuthController < ApplicationController
     user = User.find_by(email: email)
 
     if user.nil?
-      user = User.new(email: email, name: auth[:info][:nickname])
+      name = auth[:info][:name] || auth[:info][:nickname]
+      user = User.new(email: email, name: name)
       user.save
     end
 

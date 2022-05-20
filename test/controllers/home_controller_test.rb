@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Web::HomeControllerTest < ActionDispatch::IntegrationTest
+class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
     get root_path
     assert_response :success
