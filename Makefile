@@ -37,3 +37,10 @@ heroku-console:
 
 heroku-logs:
 	heroku logs --tail
+
+ci-setup:
+	cp -n .env.example .env || true
+	yarn install
+	bundle install --without production development
+	RAILS_ENV=test bin/rails db:prepare
+	# bin/rails db:fixtures:load
