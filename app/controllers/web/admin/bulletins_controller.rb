@@ -14,9 +14,9 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     authorize @bulletin, policy_class: AdminBulletinPolicy
 
     if @bulletin.publish!
-      redirect_to profile_path, notice: t('web.bulletins.publish.success')
+      redirect_to admin_index_path, notice: t('web.bulletins.publish.success')
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      redirect_to admin_index_path, status: :unprocessable_entity
     end
   end
 
@@ -24,9 +24,9 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     authorize @bulletin, policy_class: AdminBulletinPolicy
 
     if @bulletin.reject!
-      redirect_to profile_path, notice: t('.web.bulletins.reject.success')
+      redirect_to admin_index_path, notice: t('.web.bulletins.reject.success')
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      redirect_to admin_index_path, status: :unprocessable_entity
     end
   end
 

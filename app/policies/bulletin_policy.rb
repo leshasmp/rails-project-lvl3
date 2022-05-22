@@ -5,6 +5,10 @@ class BulletinPolicy < ApplicationPolicy
     user
   end
 
+  def show?
+    record.published?
+  end
+
   def new?
     user
   end

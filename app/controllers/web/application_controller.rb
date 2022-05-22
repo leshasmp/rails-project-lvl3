@@ -10,6 +10,6 @@ class Web::ApplicationController < ApplicationController
   private
 
   def user_not_authorized
-    redirect_to root_path
+    redirect_to root_path, flash: { error: t('authorization.error') }
   end
 end

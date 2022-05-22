@@ -2,14 +2,16 @@
 
 class Web::BulletinsController < Web::ApplicationController
   before_action :set_bulletin, except: %i[index create new]
-  after_action :verify_authorized, except: %i[index show]
+  after_action :verify_authorized, except: %i[index]
 
   def index
     @q = Bulletin.published.order('created_at DESC').ransack(params[:query])
     @bulletins = @q.result.page(params[:page])
   end
 
-  def show; end
+  def show
+    authorize @bulletin
+  end
 
   def new
     @bulletin = Bulletin.new
