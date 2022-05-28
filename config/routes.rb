@@ -8,20 +8,19 @@ Rails.application.routes.draw do
     get 'auth/:provider/callback', to: 'auth#callback', as: :callback_auth
     delete 'auth/logout', to: 'auth#sign_out', as: :auth_logout
 
-    get '/profile', to: 'profile#index'
+    resource :profile, only: :show
 
-    resources :bulletins do
+    resources :bulletins, except: :destroy do
       member do
         patch 'to_moderation'
         patch 'archive'
       end
     end
 
-    resources :admin, only: :index
-
     namespace 'admin' do
+      get '/', to: 'home#index'
       resources :categories, except: :show
-      resources :bulletins, only: %i[index] do
+      resources :bulletins, only: :index do
         member do
           patch 'publish'
           patch 'reject'

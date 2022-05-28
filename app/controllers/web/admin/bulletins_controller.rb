@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Web::Admin::BulletinsController < Web::Admin::ApplicationController
-  before_action :set_bulletin, except: %i[index]
   after_action :verify_authorized
 
   def index
@@ -11,42 +10,26 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   end
 
   def publish
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin, policy_class: AdminBulletinPolicy
 
-    if @bulletin.publish!
-      redirect_to admin_index_path, notice: t('web.bulletins.publish.success')
-    else
-      redirect_to admin_index_path, status: :unprocessable_entity
-    end
+    @bulletin.publish!
+    redirect_to admin_path, notice: t('web.bulletins.publish.success')
   end
 
   def reject
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin, policy_class: AdminBulletinPolicy
 
-    if @bulletin.reject!
-      redirect_to admin_index_path, notice: t('.web.bulletins.reject.success')
-    else
-      redirect_to admin_index_path, status: :unprocessable_entity
-    end
+    @bulletin.reject!
+    redirect_to admin_path, notice: t('.web.bulletins.reject.success')
   end
 
   def archive
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin, policy_class: AdminBulletinPolicy
 
-    if @bulletin.archive!
-      redirect_to profile_path, notice: t('.web.bulletins.archive.success')
-    else
-      redirect_to profile_path, status: :unprocessable_entity
-    end
-  end
-
-  private
-
-  def set_bulletin
-    @bulletin = Bulletin.find params[:id]
-  end
-
-  def bulletin_params
-    params.require(:bulletin).permit(:title, :description, :image, :category_id)
+    @bulletin.archive!
+    redirect_to profile_path, notice: t('.web.bulletins.archive.success')
   end
 end

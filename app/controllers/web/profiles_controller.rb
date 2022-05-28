@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Web::ProfileController < Web::ApplicationController
+class Web::ProfilesController < Web::ApplicationController
   after_action :verify_authorized
 
-  def index
-    authorize Bulletin, policy_class: ProfilePolicy
+  def show
+    authorize Bulletin, policy_class: ProfilesPolicy
     @q = current_user.bulletins.order('created_at DESC').ransack(params[:query])
     @bulletins = @q.result.page(params[:page])
   end

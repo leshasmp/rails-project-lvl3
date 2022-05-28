@@ -23,7 +23,7 @@
             td
               = link_to bulletin.title, bulletin
             td
-              = t("web.state.#{bulletin.state}")
+              = bulletin.aasm.human_state
             td
               = t('web.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
             td

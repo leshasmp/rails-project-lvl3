@@ -10,11 +10,21 @@ ru:
         title:
           Заголовок
         description:
-          Содержание    
+          Содержание
         category:
           Категория
         image:
           Изображение
+        state/under_moderation:
+          На модерации
+        state/rejected:
+          Возвращено
+        state/draft:
+          Черновик
+        state/published:
+          Опубликовано
+        state/archived:
+          В архиве
       category:
         name:
           Название    

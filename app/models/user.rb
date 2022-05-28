@@ -3,5 +3,5 @@
 class User < ApplicationRecord
   has_many :bulletins, dependent: :destroy
 
-  validates :name, :email, presence: true
+  validates :email, presence: true
 end

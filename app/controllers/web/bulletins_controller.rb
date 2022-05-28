@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Web::BulletinsController < Web::ApplicationController
-  before_action :set_bulletin, except: %i[index create new]
-  after_action :verify_authorized, except: %i[index]
+  after_action :verify_authorized, only: %i[show new edit create update to_moderation archive]
 
   def index
     @q = Bulletin.published.order('created_at DESC').ransack(params[:query])
@@ -10,6 +9,7 @@ class Web::BulletinsController < Web::ApplicationController
   end
 
   def show
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin
   end
 
@@ -19,6 +19,7 @@ class Web::BulletinsController < Web::ApplicationController
   end
 
   def edit
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin
   end
 
@@ -34,6 +35,7 @@ class Web::BulletinsController < Web::ApplicationController
   end
 
   def update
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin
 
     if @bulletin.update(bulletin_params)
@@ -44,30 +46,22 @@ class Web::BulletinsController < Web::ApplicationController
   end
 
   def to_moderation
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin
 
-    if @bulletin.to_moderation!
-      redirect_to profile_path, notice: t('.success')
-    else
-      redirect_to profile_path, status: :unprocessable_entity
-    end
+    @bulletin.to_moderation!
+    redirect_to profile_path, notice: t('.success')
   end
 
   def archive
+    @bulletin = Bulletin.find params[:id]
     authorize @bulletin
 
-    if @bulletin.archive!
-      redirect_to profile_path, notice: t('.success')
-    else
-      redirect_to profile_path, status: :unprocessable_entity
-    end
+    @bulletin.archive!
+    redirect_to profile_path, notice: t('.success')
   end
 
   private
-
-  def set_bulletin
-    @bulletin = Bulletin.find params[:id]
-  end
 
   def bulletin_params
     params.require(:bulletin).permit(:title, :description, :image, :category_id)

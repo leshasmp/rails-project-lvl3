@@ -21,9 +21,9 @@
             td
               = link_to bulletin.title, bulletin
             td
-              = t("state.#{bulletin.state}")
+              = bulletin.aasm.human_state
             td
-              = t('day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
+              = t('web.day_ago', count: distance_of_time_in_words_to_now(bulletin.created_at))
             td
               - if bulletin.may_publish?
                 = link_to t('items.publish'), publish_admin_bulletin_path(bulletin), class: 'me-2', method: :patch

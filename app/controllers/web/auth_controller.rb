@@ -2,35 +2,39 @@
 
 class Web::AuthController < Web::ApplicationController
   helper_method :current_user, :logged_in?
-  before_action :auth, only: [:callback]
 
   def callback
-    email = auth[:info][:email].downcase
-    user = User.find_by(email: email)
-
-    if user.nil?
-      name = auth[:info][:name] || auth[:info][:nickname]
-      user = User.new(email: email, name: name)
-      user.save
+    if User.find_by email: user_params[:email]
+      update
+    else
+      create
     end
-
-    sign_in user
-    redirect_to root_path, notice: t('.success')
   end
 
-  def sign_in(user)
-    session[:user_id] = user.id
+  def create
+    @user = User.new user_params
+    if @user.save
+      sign_in @user
+      redirect_to root_path, notice: t('.success')
+    else
+      redirect_to root_path, flash: { error: t('.error') }
+    end
   end
 
-  def sign_out
-    session.delete(:user_id)
-    session.clear
-    redirect_to root_path, notice: t('.success')
+  def update
+    @user = User.find_by email: user_params[:email]
+    if @user.update user_params
+      sign_in @user
+      redirect_to root_path, notice: t('.success')
+    else
+      redirect_to root_path, flash: { error: t('.error') }
+    end
   end
 
-  private
-
-  def auth
-    request.env['omniauth.auth']
+  def user_params
+    {
+      email: request.env['omniauth.auth'][:info][:email].downcase,
+      name: request.env['omniauth.auth'][:info][:name]
+    }
   end
 end

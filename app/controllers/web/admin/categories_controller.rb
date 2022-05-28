@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Web::Admin::CategoriesController < Web::Admin::ApplicationController
-  before_action :set_category, except: %i[index create new]
   after_action :verify_authorized
 
   def index
@@ -15,6 +14,7 @@ class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   end
 
   def edit
+    @category = Category.find params[:id]
     authorize @category
   end
 
@@ -30,6 +30,7 @@ class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   end
 
   def update
+    @category = Category.find params[:id]
     authorize @category
 
     if @category.update(category_params)
@@ -40,6 +41,7 @@ class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   end
 
   def destroy
+    @category = Category.find params[:id]
     authorize @category
     @category.destroy
 
@@ -47,10 +49,6 @@ class Web::Admin::CategoriesController < Web::Admin::ApplicationController
   end
 
   private
-
-  def set_category
-    @category = Category.find params[:id]
-  end
 
   def category_params
     params.require(:category).permit(:name)
