@@ -40,8 +40,8 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'under_moderation on rejected' do
-    bulletin = bulletins :under_moderation
     sign_in @admin
+    bulletin = bulletins :under_moderation
     patch reject_admin_bulletin_url(bulletin)
 
     assert_response :redirect

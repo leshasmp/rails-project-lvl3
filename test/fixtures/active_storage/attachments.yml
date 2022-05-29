@@ -1,0 +1,14 @@
+image:
+  name: image
+  record: one (Bulletin)
+  blob: image_blob
+
+image_two:
+  name: image
+  record: two (Bulletin)
+  blob: image_blob
+
+image_tree:
+  name: image
+  record: under_moderation (Bulletin)
+  blob: image_blob
