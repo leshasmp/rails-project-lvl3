@@ -3,6 +3,19 @@
 require 'test_helper'
 
 class Web::AuthControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users :one
+    @admin = users :admin
+    @bulletin = bulletins :one
+    @category = categories :one
+    @attrs = {
+      title: Faker::Book.title,
+      description: Faker::Books::Dune.quote,
+      category_id: @category.id,
+      image: fixture_file_upload('hexlet.png', 'image/png')
+    }
+  end
+
   test 'check github auth' do
     post auth_request_path('github')
     assert_response :redirect
@@ -27,5 +40,13 @@ class Web::AuthControllerTest < ActionDispatch::IntegrationTest
 
     assert user
     assert signed_in?
+  end
+
+  test 'sign_out' do
+    sign_in @user
+    assert { signed_in? }
+
+    sign_out
+    assert { session[:user_id].nil? }
   end
 end

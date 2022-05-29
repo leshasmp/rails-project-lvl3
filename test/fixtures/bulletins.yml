@@ -11,3 +11,10 @@ two:
   description: MyText
   category: two
   user: one
+
+under_moderation:
+  title: MyString
+  description: MyText
+  category: one
+  user: one
+  state: under_moderation

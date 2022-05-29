@@ -5,7 +5,7 @@
         = t('.title')
       hr
       = link_to t('web.bulletins.add'), new_bulletin_path, class: 'mt-4'
-      = render 'web/admin/bulletins/search_form'
+      = render 'web/admin/bulletins/search_form', q: @q
       table.table.table-borderless.mb-4
         thead
           tr

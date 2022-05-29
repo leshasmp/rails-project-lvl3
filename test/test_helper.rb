@@ -39,4 +39,9 @@ class ActionDispatch::IntegrationTest
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def sign_out
+    session.delete(:user_id)
+    session.clear
+  end
 end

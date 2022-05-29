@@ -6,7 +6,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def show?
-    record.published?
+    admin? || author? || record.published?
   end
 
   def new?
@@ -14,7 +14,7 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def edit?
-    admin? || user == record.user
+    admin? || author?
   end
 
   def create?
@@ -22,19 +22,11 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   def to_moderation?
-    admin? || user == record.user
-  end
-
-  def publish?
-    admin?
-  end
-
-  def reject?
-    admin?
+    admin? || author?
   end
 
   def archive?
-    admin? || user == record.user
+    admin? || author?
   end
 
   def update?
@@ -42,6 +34,10 @@ class BulletinPolicy < ApplicationPolicy
   end
 
   private
+
+  def author?
+    user == record.user
+  end
 
   def admin?
     user&.admin?

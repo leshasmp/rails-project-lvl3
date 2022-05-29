@@ -9,3 +9,8 @@ one:
   name: <%= Faker::Name.name %>
   email: <%= Faker::Internet.email %>
   admin: false
+
+two:
+  name: <%= Faker::Name.name %>
+  email: <%= Faker::Internet.email %>
+  admin: false

@@ -75,7 +75,6 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @admin
 
     post admin_categories_url, params: { category: @attrs }
-    assert_response :redirect
 
     category = Category.find_by! name: @attrs[:name]
 
@@ -87,6 +86,10 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     post admin_categories_url, params: { category: @attrs }
+
+    category = Category.find_by name: @attrs[:name]
+
+    assert { category.nil? }
     assert_redirected_to root_path
   end
 
@@ -100,6 +103,10 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @admin
 
     patch admin_category_url(@category), params: { category: @attrs }
+
+    category = Category.find_by! name: @attrs[:name]
+
+    assert { @category.id == category.id }
     assert_redirected_to admin_categories_url
   end
 
@@ -107,15 +114,20 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     patch admin_category_url(@category), params: { category: @attrs }
+
+    category = Category.find_by name: @attrs[:name]
+
+    assert { category.nil? }
     assert_redirected_to root_path
   end
 
   test 'guest cant update category' do
     patch admin_category_url(@category), params: { category: @attrs }
 
-    @category.reload
+    category = Category.find_by name: @attrs[:name]
 
-    assert { @category.name != @attrs[:name] }
+    assert { category.nil? }
+
     assert_redirected_to root_path
   end
 end

@@ -7,13 +7,6 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
     @user = users :one
     @admin = users :admin
     @bulletin = bulletins :one
-    @category = categories :one
-    @attrs = {
-      title: Faker::Book.title,
-      description: Faker::Books::Dune.quote,
-      category_id: @category.id,
-      image: fixture_file_upload('hexlet.png', 'image/png')
-    }
   end
 
   test 'signed admin can get index' do
@@ -33,5 +26,37 @@ class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test 'guest cant get index' do
     get admin_bulletins_url
     assert_redirected_to root_path
+  end
+
+  test 'under_moderation on published' do
+    bulletin = bulletins :under_moderation
+    sign_in @admin
+    patch publish_admin_bulletin_url(bulletin)
+
+    assert_response :redirect
+
+    bulletin.reload
+    assert { bulletin.published? }
+  end
+
+  test 'under_moderation on rejected' do
+    bulletin = bulletins :under_moderation
+    sign_in @admin
+    patch reject_admin_bulletin_url(bulletin)
+
+    assert_response :redirect
+
+    bulletin.reload
+    assert { bulletin.rejected? }
+  end
+
+  test 'on archive' do
+    sign_in @admin
+    patch archive_admin_bulletin_url(@bulletin)
+
+    assert_response :redirect
+
+    @bulletin.reload
+    assert { @bulletin.archived? }
   end
 end

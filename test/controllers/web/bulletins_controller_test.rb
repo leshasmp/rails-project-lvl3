@@ -5,7 +5,7 @@ require 'test_helper'
 class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users :one
-    @admin = users :admin
+    @user_two = users :two
     @bulletin = bulletins :one
     @category = categories :one
     @attrs = {
@@ -32,9 +32,10 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test 'signed user can create bulletin' do
     sign_in @user
     post bulletins_url, params: { bulletin: @attrs }
-    assert_response :redirect
 
-    bulletin = Bulletin.find_by! title: @attrs[:title]
+    bulletin = Bulletin.find_by! title: @attrs[:title],
+                                 description: @attrs[:description],
+                                 category_id: @attrs[:category_id]
 
     assert { bulletin }
     assert_redirected_to root_path
@@ -43,6 +44,11 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test 'guest cant create bulletin' do
     post bulletins_url, params: { bulletin: @attrs }
 
+    bulletin = Bulletin.find_by title: @attrs[:title],
+                                description: @attrs[:description],
+                                category_id: @attrs[:category_id]
+
+    assert { bulletin.nil? }
     assert_redirected_to root_path
   end
 
@@ -53,24 +59,28 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'admin can edit' do
-    sign_in @admin
+  test 'not author cant edit bulletin' do
+    sign_in @user_two
 
     get edit_bulletin_url(@bulletin)
-    assert_response :success
+    assert_redirected_to root_path
+  end
+
+  test 'guest cant edit bulletin' do
+    get edit_bulletin_url(@bulletin)
+    assert_redirected_to root_path
   end
 
   test 'author can update bulletin' do
     sign_in @user
 
     patch bulletin_url(@bulletin), params: { bulletin: @attrs }
-    assert_redirected_to bulletin_url(@bulletin)
-  end
 
-  test 'admin can update bulletin' do
-    sign_in @admin
+    bulletin = Bulletin.find_by! title: @attrs[:title],
+                                 description: @attrs[:description],
+                                 category_id: @attrs[:category_id]
 
-    patch bulletin_url(@bulletin), params: { bulletin: @attrs }
+    assert { @bulletin.id == bulletin.id }
     assert_redirected_to bulletin_url(@bulletin)
   end
 
@@ -81,5 +91,25 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     assert { @bulletin.title != @attrs[:title] }
     assert_redirected_to root_path
+  end
+
+  test 'draft on under moderation' do
+    sign_in @user
+    patch to_moderation_bulletin_url(@bulletin)
+
+    assert_response :redirect
+
+    @bulletin.reload
+    assert { @bulletin.under_moderation? }
+  end
+
+  test 'draft on archive' do
+    sign_in @user
+    patch archive_bulletin_url(@bulletin)
+
+    assert_response :redirect
+
+    @bulletin.reload
+    assert { @bulletin.archived? }
   end
 end
