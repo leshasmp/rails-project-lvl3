@@ -31,6 +31,12 @@ class Web::AuthController < Web::ApplicationController
     end
   end
 
+  def sign_out
+    session.delete(:user_id)
+    session.clear
+    redirect_to root_path, notice: t('.success')
+  end
+
   def user_params
     {
       email: request.env['omniauth.auth'][:info][:email].downcase,
