@@ -33,9 +33,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     post bulletins_url, params: { bulletin: @attrs }
 
-    bulletin = Bulletin.find_by! title: @attrs[:title],
-                                 description: @attrs[:description],
-                                 category_id: @attrs[:category_id]
+    bulletin = Bulletin.find_by(@attrs.except(:image))
 
     assert { bulletin }
     assert_redirected_to root_path
@@ -44,9 +42,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
   test 'guest cant create bulletin' do
     post bulletins_url, params: { bulletin: @attrs }
 
-    bulletin = Bulletin.find_by title: @attrs[:title],
-                                description: @attrs[:description],
-                                category_id: @attrs[:category_id]
+    bulletin = Bulletin.find_by(@attrs.except(:image))
 
     assert { bulletin.nil? }
     assert_redirected_to root_path
@@ -76,9 +72,7 @@ class Web::BulletinsControllerTest < ActionDispatch::IntegrationTest
 
     patch bulletin_url(@bulletin), params: { bulletin: @attrs }
 
-    bulletin = Bulletin.find_by! title: @attrs[:title],
-                                 description: @attrs[:description],
-                                 category_id: @attrs[:category_id]
+    bulletin = Bulletin.find_by(@attrs.except(:image))
 
     assert { @bulletin.id == bulletin.id }
     assert_redirected_to bulletin_url(@bulletin)
