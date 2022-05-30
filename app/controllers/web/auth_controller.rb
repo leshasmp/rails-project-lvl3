@@ -4,27 +4,26 @@ class Web::AuthController < Web::ApplicationController
   helper_method :current_user, :logged_in?
 
   def callback
-    if User.find_by email: user_params[:email]
-      update
+    @user = User.find_or_initialize_by(email: user_params[:email])
+    if @user.new_record?
+      create @user
     else
-      create
+      update @user
     end
   end
 
-  def create
-    @user = User.new user_params
-    if @user.save
-      sign_in @user
+  def create(user)
+    if user.save
+      sign_in user
       redirect_to root_path, notice: t('.success')
     else
       redirect_to root_path, flash: { error: t('.error') }
     end
   end
 
-  def update
-    @user = User.find_by email: user_params[:email]
-    if @user.update user_params
-      sign_in @user
+  def update(user)
+    if user.update user_params
+      sign_in user
       redirect_to root_path, notice: t('.success')
     else
       redirect_to root_path, flash: { error: t('.error') }

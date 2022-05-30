@@ -49,16 +49,22 @@ class Web::BulletinsController < Web::ApplicationController
     @bulletin = Bulletin.find params[:id]
     authorize @bulletin
 
-    @bulletin.to_moderation!
-    redirect_to profile_path, notice: t('.success')
+    if @bulletin.to_moderation!
+      redirect_to profile_path, notice: t('web.bulletins.to_moderation.success')
+    else
+      redirect_to profile_path, status: :unprocessable_entity
+    end
   end
 
   def archive
     @bulletin = Bulletin.find params[:id]
     authorize @bulletin
 
-    @bulletin.archive!
-    redirect_to profile_path, notice: t('.success')
+    if @bulletin.archive!
+      redirect_to profile_path, notice: t('web.bulletins.archive.success')
+    else
+      redirect_to profile_path, status: :unprocessable_entity
+    end
   end
 
   private

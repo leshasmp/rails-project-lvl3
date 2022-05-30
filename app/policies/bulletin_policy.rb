@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class BulletinPolicy < ApplicationPolicy
-  def index?
-    user
-  end
-
   def show?
     admin? || author? || record.published?
   end

@@ -9,21 +9,30 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
   def publish
     @bulletin = Bulletin.find params[:id]
 
-    @bulletin.publish!
-    redirect_to admin_path, notice: t('web.bulletins.publish.success')
+    if @bulletin.publish!
+      redirect_to admin_path, notice: t('web.bulletins.publish.success')
+    else
+      redirect_to admin_path, status: :unprocessable_entity
+    end
   end
 
   def reject
     @bulletin = Bulletin.find params[:id]
 
-    @bulletin.reject!
-    redirect_to admin_path, notice: t('web.bulletins.reject.success')
+    if @bulletin.reject!
+      redirect_to admin_path, notice: t('web.bulletins.reject.success')
+    else
+      redirect_to admin_path, status: :unprocessable_entity
+    end
   end
 
   def archive
     @bulletin = Bulletin.find params[:id]
 
-    @bulletin.archive!
-    redirect_to admin_bulletins_path, notice: t('web.bulletins.archive.success')
+    if @bulletin.archive!
+      redirect_to admin_path, notice: t('web.bulletins.archive.success')
+    else
+      redirect_to admin_path, status: :unprocessable_entity
+    end
   end
 end
