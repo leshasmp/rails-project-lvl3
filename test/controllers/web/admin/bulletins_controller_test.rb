@@ -4,7 +4,6 @@ require 'test_helper'
 
 class Web::Admin::BulletinsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users :one
     @admin = users :admin
     @bulletin = bulletins :one
   end

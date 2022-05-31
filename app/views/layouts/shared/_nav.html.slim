@@ -25,7 +25,7 @@ header.container.mb-2
           li.nav-item
             = link_to t('.admin'), admin_path, class: 'nav-link text-dark'
         li.nav-item
-          = link_to t('.sign_out'), auth_logout_path, class: 'nav-link text-dark', method: 'delete', data: { turbo: false }
+          = link_to t('.logout'), auth_logout_path, class: 'nav-link text-dark', method: 'delete', data: { turbo: false }
       - else
         li.nav-item
           = link_to auth_request_path('github'), class: 'nav-link text-dark', method: 'post', data: { turbo: false } do

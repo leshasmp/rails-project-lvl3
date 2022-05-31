@@ -5,32 +5,16 @@ class Web::AuthController < Web::ApplicationController
 
   def callback
     @user = User.find_or_initialize_by(email: user_params[:email])
-    if @user.new_record?
-      create @user
-    else
-      update @user
-    end
-  end
-
-  def create(user)
-    if user.save
-      sign_in user
+    @user[:name] = user_params[:name]
+    if @user.save
+      sign_in @user
       redirect_to root_path, notice: t('.success')
     else
       redirect_to root_path, flash: { error: t('.error') }
     end
   end
 
-  def update(user)
-    if user.update user_params
-      sign_in user
-      redirect_to root_path, notice: t('.success')
-    else
-      redirect_to root_path, flash: { error: t('.error') }
-    end
-  end
-
-  def sign_out
+  def logout
     session.delete(:user_id)
     session.clear
     redirect_to root_path, notice: t('.success')

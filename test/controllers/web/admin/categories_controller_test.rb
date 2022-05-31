@@ -38,7 +38,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should create category' do
     post admin_categories_url, params: { category: @attrs }
 
-    category = Category.find_by! @attrs
+    category = Category.find_by @attrs
 
     assert { category }
     assert_redirected_to admin_categories_url
@@ -47,7 +47,7 @@ class Web::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should update category' do
     patch admin_category_url(@category), params: { category: @attrs }
 
-    category = Category.find_by! @attrs
+    category = Category.find_by @attrs
 
     assert { @category.id == category.id }
     assert_redirected_to admin_categories_url

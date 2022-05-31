@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Web::Admin::ApplicationController < Web::ApplicationController
-  include AuthConcern
-
   before_action :check_admin
 
   def check_admin

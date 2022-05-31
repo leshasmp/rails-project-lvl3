@@ -20,7 +20,7 @@ ru:
           Успешно
         error:
           Ошибка аутентификации
-      sign_out:
+      logout:
         success:
           Успешно
     admin:
