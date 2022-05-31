@@ -5,8 +5,6 @@ require 'test_helper'
 class Web::AuthControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users :one
-    @admin = users :admin
-    @bulletin = bulletins :one
     @category = categories :one
     @attrs = {
       title: Faker::Book.title,
