@@ -15,8 +15,7 @@ class Web::AuthController < Web::ApplicationController
   end
 
   def logout
-    session.delete(:user_id)
-    session.clear
+    sign_out
     redirect_to root_path, notice: t('.success')
   end
 

@@ -5,13 +5,6 @@ require 'test_helper'
 class Web::AuthControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users :one
-    @category = categories :one
-    @attrs = {
-      title: Faker::Book.title,
-      description: Faker::Books::Dune.quote,
-      category_id: @category.id,
-      image: fixture_file_upload('hexlet.png', 'image/png')
-    }
   end
 
   test 'check github auth' do

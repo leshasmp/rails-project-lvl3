@@ -52,7 +52,7 @@ class Web::BulletinsController < Web::ApplicationController
     if @bulletin.to_moderation!
       redirect_to profile_path, notice: t('web.bulletins.to_moderation.success')
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      redirect_to profile_path, flash: { error: t('web.bulletins.state.error') }
     end
   end
 
@@ -63,7 +63,7 @@ class Web::BulletinsController < Web::ApplicationController
     if @bulletin.archive!
       redirect_to profile_path, notice: t('web.bulletins.archive.success')
     else
-      redirect_to profile_path, status: :unprocessable_entity
+      redirect_to profile_path, flash: { error: t('web.bulletins.state.error') }
     end
   end
 

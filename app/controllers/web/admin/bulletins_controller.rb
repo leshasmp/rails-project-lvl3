@@ -12,7 +12,7 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     if @bulletin.publish!
       redirect_to admin_path, notice: t('web.bulletins.publish.success')
     else
-      redirect_to admin_path, status: :unprocessable_entity
+      redirect_to admin_path, flash: { error: t('web.bulletins.state.error') }
     end
   end
 
@@ -22,7 +22,7 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     if @bulletin.reject!
       redirect_to admin_path, notice: t('web.bulletins.reject.success')
     else
-      redirect_to admin_path, status: :unprocessable_entity
+      redirect_to admin_path, flash: { error: t('web.bulletins.state.error') }
     end
   end
 
@@ -32,7 +32,7 @@ class Web::Admin::BulletinsController < Web::Admin::ApplicationController
     if @bulletin.archive!
       redirect_to admin_path, notice: t('web.bulletins.archive.success')
     else
-      redirect_to admin_path, status: :unprocessable_entity
+      redirect_to admin_path, flash: { error: t('web.bulletins.state.error') }
     end
   end
 end
